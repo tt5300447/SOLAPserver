@@ -1,0 +1,3 @@
+Title: geomondrian
+Version: 1.0
+Vendor: Spatialytics
