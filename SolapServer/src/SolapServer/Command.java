@@ -4,11 +4,13 @@
  */
 package SolapServer;
 
+import com.sun.net.httpserver.HttpExchange;
+
 /**
  *
  * @author tarik
  */
 public interface Command {
-    public void execute(Request request, ResultHandler resultHandler);
+    public void execute(Request request, Response response, HttpExchange exchange);
 }
 

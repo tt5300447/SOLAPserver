@@ -4,13 +4,15 @@
  */
 package SolapServer;
 
+import com.sun.net.httpserver.HttpExchange;
+
 /**
  *
  * @author tarik
  */
 public class Invoker {
-    public void execute(Command command, Request request, ResultHandler resultHandler) {
-        command.execute(request, resultHandler);
+    public void execute(Command command, Request request, Response response, HttpExchange exchange) {
+        command.execute(request, response, exchange);
     }
 }
 

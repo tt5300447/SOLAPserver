@@ -4,8 +4,14 @@
  */
 package SolapServer;
 
+import com.sun.net.httpserver.HttpExchange;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.olap4j.CellSet;
 
 /**
  *
@@ -13,15 +19,17 @@ import java.util.Map;
  */
 public class MDXQueryCommand implements Command {
     @Override
-    public void execute(Request request, ResultHandler resultHandler) {
+    public void execute(Request request, Response response, HttpExchange exchange) {
         // extract query parameters from request
-        String query = request.getQueryParam("query");
+        String query = request.getQueryParam("mdx");
 
-        // execute query using GeoMondrianConnection
-        List<Map<String, Object>> result = GeoMondrianConnection.executeMDXQuery(query);
-
-        // pass query result to result handler
-        resultHandler.handle(result);
+        try {
+            // execute query using GeoMondrianConnection
+            CellSet result = GeoMondrianConnection.executeMDXQuery(query);
+            ResultHandler.handle(result,exchange);
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(MDXQueryCommand.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
 
