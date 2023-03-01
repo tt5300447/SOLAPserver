@@ -29,7 +29,7 @@ public class MyHttpServer {
         server.createContext("/", new MyHandler());
         server.setExecutor(null);
         server.start();
-        LOGGER.info("Server started on port 8000");
+        LOGGER.info("Server started on port 8080");
     }
 
     static class MyHandler implements HttpHandler {
