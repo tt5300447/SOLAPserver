@@ -18,14 +18,18 @@ import org.olap4j.CellSet;
  * @author tarik
  */
 public class MDXQueryCommand implements Command {
+    private static final Logger LOGGER = Logger.getLogger(MDXQueryCommand.class.getName());
+
     @Override
     public void execute(Request request, Response response, HttpExchange exchange) {
         // extract query parameters from request
         String query = request.getQueryParam("mdx");
+        LOGGER.info("String query = " + request.getQueryParam("mdx"));
 
         try {
             // execute query using GeoMondrianConnection
             CellSet result = GeoMondrianConnection.executeMDXQuery(query);
+            LOGGER.info("HERE WE ARE AFTER EXECUTING THE QUERY");
             ResultHandler.handle(result,exchange);
         } catch (SQLException | IOException ex) {
             Logger.getLogger(MDXQueryCommand.class.getName()).log(Level.SEVERE, null, ex);

@@ -32,15 +32,7 @@ public class requete {
         OlapConnection olapConnection = wrapper.unwrap(OlapConnection.class);
         OlapStatement statement = olapConnection.createStatement();
 
-        String qs = "SELECT\n"
-                + "	{[Measures].[Unit Sales],[Measures].[Store Sales]} on columns,\n"
-                + "	Filter(\n"
-                + "        {[Store].[Store City].members},\n"
-                + "                ST_Within([Store].CurrentMember.Properties(\"geom\"),\n"
-                + "                [Store].[Store Country].[USA].Properties(\"geom\"))\n"
-                + "	) on rows\n"
-                + "FROM [Sales]\n"
-                + "WHERE [Time].[1997]";
+        String qs = "select {[Measures].[Unit Sales], [Measures].[Store Cost], [Measures].[Store Sales]} on columns, {([Store].[All Stores], [Product].[All Products])} ON rows from Sales where ([Time].[1997])";
 
         CellSet cellSet = statement.executeOlapQuery(qs);
         

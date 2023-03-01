@@ -35,7 +35,7 @@ public class RequestHandler {
         switch(path) {
             case "/query":
                 LOGGER.info("i am here just before executing invoker.execute(new MDXQueryCommand(), request, response);");
-                invoker.execute(new MDXQueryCommand(), request, response,exchange);
+                invoker.execute(new MDXQueryCommand(), request, response, exchange);
                 break;
             // add more cases for other commands here
             default:
