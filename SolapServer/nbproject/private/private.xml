@@ -3,17 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/tarik/Documents/NetBeansProjects/SolapServer/src/SolapServer/MyHttpServer.java</file>
-            <file>file:/C:/Users/tarik/Documents/NetBeansProjects/SolapServer/src/SolapServer/Command.java</file>
-            <file>file:/C:/Users/tarik/Documents/NetBeansProjects/SolapServer/src/SolapServer/Request.java</file>
-            <file>file:/C:/Users/tarik/Documents/NetBeansProjects/SolapServer/src/SolapServer/MondrianServerExample.java</file>
             <file>file:/C:/Users/tarik/Documents/NetBeansProjects/SolapServer/src/SolapServer/GeoMondrianConnection.java</file>
             <file>file:/C:/Users/tarik/Documents/NetBeansProjects/SolapServer/src/SolapServer/MDXQueryCommand.java</file>
-            <file>file:/C:/Users/tarik/Documents/NetBeansProjects/SolapServer/src/SolapServer/requete.java</file>
-            <file>file:/C:/Users/tarik/Documents/NetBeansProjects/SolapServer/src/SolapServer/ResultHandler.java</file>
-            <file>file:/C:/Users/tarik/Documents/NetBeansProjects/SolapServer/src/SolapServer/HelloWorldServer.java</file>
-            <file>file:/C:/Users/tarik/Documents/NetBeansProjects/SolapServer/src/SolapServer/RequestHandler.java</file>
-            <file>file:/C:/Users/tarik/Documents/NetBeansProjects/SolapServer/src/SolapServer/Invoker.java</file>
         </group>
     </open-files>
 </project-private>
