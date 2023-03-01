@@ -33,6 +33,8 @@ public class MDXQueryCommand implements Command {
             ResultHandler.handle(result,exchange);
         } catch (SQLException | IOException ex) {
             Logger.getLogger(MDXQueryCommand.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MDXQueryCommand.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
