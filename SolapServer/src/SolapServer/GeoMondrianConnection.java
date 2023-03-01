@@ -3,15 +3,14 @@ package SolapServer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import mondrian.olap.Connection;
 import mondrian.olap.DriverManager;
+import org.olap4j.*;
 
 public class GeoMondrianConnection {
     private static GeoMondrianConnection instance = null;
-    private Connection connection = null;
+    private static Connection connection = null;
 
     GeoMondrianConnection() throws SQLException, IOException {
         Properties props = new Properties();
@@ -46,8 +45,13 @@ public class GeoMondrianConnection {
         return connection;
     }
 
-    public static List<Map<String, Object>> executeMDXQuery(String query) {
-        //GeoMondrianConnection.getInstance();
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public static CellSet executeMDXQuery(String query) throws SQLException {
+        OlapWrapper wrapper = (OlapWrapper) connection;
+        OlapConnection olapConnection = wrapper.unwrap(OlapConnection.class);
+        OlapStatement statement = olapConnection.createStatement();
+        CellSet cellSet = statement.executeOlapQuery(query);
+
+        
+        return cellSet;
     }
 }

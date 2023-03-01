@@ -8,67 +8,41 @@ package SolapServer;
  *
  * @author tarik
  */
+
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MyHttpServer {
-    public static void main(String[] args) throws IOException {
-        HttpServer server = HttpServer.create(new InetSocketAddress(8181), 0);
-        Router router = new Router();
-
-        server.createContext("/", new RequestHandler(router));
+    private static final Logger LOGGER = Logger.getLogger(MyHttpServer.class.getName());
+    
+    public static void main(String[] args) throws Exception {
+        Logger rootLogger = Logger.getLogger("");
+        rootLogger.setLevel(Level.ALL);
+        HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
+        server.createContext("/", new MyHandler());
         server.setExecutor(null);
         server.start();
-
-        System.out.println("Server is listening on port 8181");
+        LOGGER.info("Server started on port 8000");
     }
 
-    static class RequestHandler implements HttpHandler {
-        private final Router router;
-
-        RequestHandler(Router router) {
-            this.router = router;
-        }
-
+    static class MyHandler implements HttpHandler {
         @Override
-        public void handle(HttpExchange exchange) throws IOException {
-            String method = exchange.getRequestMethod();
-            String path = exchange.getRequestURI().getPath();
-
-            Request request = new Request(method, path, parseRequestParameters(exchange));
-
-            Response response = new Response();
-
-            exchange.getResponseHeaders().putAll(response.getHeaders());
-            exchange.sendResponseHeaders(response.getStatus(), response.getBody().length());
-
-            OutputStream os = exchange.getResponseBody();
-            
-            os.write(response.getBody().getBytes());
-            os.close();
-        }
-
-        private Map<String, String> parseRequestParameters(HttpExchange exchange) {
-            Map<String, String> parameters = new HashMap<>();
-
-            String query = exchange.getRequestURI().getQuery();
-            if (query != null) {
-                for (String param : query.split("&")) {
-                    String[] pair = param.split("=");
-                    if (pair.length > 1) {
-                        parameters.put(pair[0], pair[1]);
-                    }
-                }
-            }
-
-            return parameters;
+        public void handle(HttpExchange t) throws IOException {
+            LOGGER.info("request received");
+            Request request = new Request(t);
+            LOGGER.info("Request created");
+            Response response = new Response(t);
+            LOGGER.info("Response created");
+            RequestHandler handler = new RequestHandler(request, response);
+            LOGGER.info("RequestHandler ");
+            handler.handle(t);
         }
     }
 }
